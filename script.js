@@ -461,7 +461,7 @@ function updateTypeBackground(type){const url=TYPE_BACKGROUNDS[type]||TYPE_BACKG
 // =========================================================
 //  FETCH
 // =========================================================
-function normalizeAbilityName(ability){
+function formatAbilityNameForApi(ability){
     return ability.toLowerCase().replace(/\s+/g,'-');
 }
 
@@ -482,9 +482,10 @@ function getLocalPokemonAsApiShape(localPokemon){
             { base_stat: localPokemon.stats.spd, stat: { name: 'special-defense' } },
             { base_stat: localPokemon.stats.spe, stat: { name: 'speed' } }
         ],
+        // PokeAPI usa weight em hectogramas e height em decímetros.
         weight: Math.round(localPokemon.weight * 10),
         height: Math.round(localPokemon.height * 10),
-        abilities: [{ ability: { name: normalizeAbilityName(localPokemon.ability) } }]
+        abilities: [{ ability: { name: formatAbilityNameForApi(localPokemon.ability) } }]
     };
 }
 
