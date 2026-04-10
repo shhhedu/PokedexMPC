@@ -13,6 +13,11 @@ let pokemonCache = {};
 let speciesCache = {};
 let evoCache = {};
 let pokemonTypeMap = {}; // { id: ['grass','poison'], ... }
+const localPokemonDatabase = Array.isArray(window.pokemonDatabase) ? window.pokemonDatabase : [];
+const localPokemonById = localPokemonDatabase.reduce((acc, pokemon) => {
+    acc[pokemon.id] = pokemon;
+    return acc;
+}, {});
 let menuIndex = 0;
 const menuActions = ['start', 'credits'];
 
@@ -338,7 +343,13 @@ let pokedexInitialized=false;
 async function initPokedex(){
     if(pokedexInitialized)return;pokedexInitialized=true;
     try{const r=await fetch(`https://pokeapi.co/api/v2/pokemon?limit=${TOTAL_POKEMON}`);const d=await r.json();allPokemonBasic=d.results.map((p,i)=>({id:i+1,name:p.name}))}
-    catch{allPokemonBasic=[];for(let i=1;i<=TOTAL_POKEMON;i++)allPokemonBasic.push({id:i,name:`pokemon-${i}`})}
+    catch{
+        if(localPokemonDatabase.length>0){
+            allPokemonBasic=localPokemonDatabase.map(p=>({id:p.id,name:p.name.toLowerCase()}));
+        }else{
+            allPokemonBasic=[];for(let i=1;i<=TOTAL_POKEMON;i++)allPokemonBasic.push({id:i,name:`pokemon-${i}`});
+        }
+    }
     filteredList = [...allPokemonBasic];
     listNavIndex = 0;
     renderList(filteredList);selectPokemon(1);setupSearch();setupTabs();setupTypeFilter();updateCounters();
@@ -450,7 +461,43 @@ function updateTypeBackground(type){const url=TYPE_BACKGROUNDS[type]||TYPE_BACKG
 // =========================================================
 //  FETCH
 // =========================================================
-async function fetchPokemon(id){if(pokemonCache[id])return pokemonCache[id];try{const r=await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`);const d=await r.json();pokemonCache[id]=d;return d}catch{return null}}
+function normalizeAbilityName(ability){
+    return ability.toLowerCase().replace(/\s+/g,'-');
+}
+
+function getLocalPokemonAsApiShape(localPokemon){
+    return {
+        id: localPokemon.id,
+        name: localPokemon.name.toLowerCase(),
+        types: localPokemon.types.map(typeName => ({ type: { name: typeName } })),
+        sprites: {
+            front_default: localPokemon.sprite,
+            other: { 'official-artwork': { front_default: localPokemon.sprite } }
+        },
+        stats: [
+            { base_stat: localPokemon.stats.hp, stat: { name: 'hp' } },
+            { base_stat: localPokemon.stats.atk, stat: { name: 'attack' } },
+            { base_stat: localPokemon.stats.def, stat: { name: 'defense' } },
+            { base_stat: localPokemon.stats.spa, stat: { name: 'special-attack' } },
+            { base_stat: localPokemon.stats.spd, stat: { name: 'special-defense' } },
+            { base_stat: localPokemon.stats.spe, stat: { name: 'speed' } }
+        ],
+        weight: Math.round(localPokemon.weight * 10),
+        height: Math.round(localPokemon.height * 10),
+        abilities: [{ ability: { name: normalizeAbilityName(localPokemon.ability) } }]
+    };
+}
+
+async function fetchPokemon(id){
+    if(pokemonCache[id])return pokemonCache[id];
+    const localPokemon=localPokemonById[id];
+    if(localPokemon){
+        const localData=getLocalPokemonAsApiShape(localPokemon);
+        pokemonCache[id]=localData;
+        return localData;
+    }
+    try{const r=await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`);const d=await r.json();pokemonCache[id]=d;return d}catch{return null}
+}
 async function fetchSpecies(id){if(speciesCache[id])return speciesCache[id];try{const r=await fetch(`https://pokeapi.co/api/v2/pokemon-species/${id}`);const d=await r.json();speciesCache[id]=d;return d}catch{return null}}
 
 // =========================================================
