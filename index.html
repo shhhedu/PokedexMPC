@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pokédex</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -48,9 +48,7 @@
     <div id="credits-screen" class="hidden">
         <div id="credits-bg"></div>
         <div id="credits-overlay"></div>
-        <!-- Chuva de Pokémon -->
         <canvas id="pokemon-rain-canvas"></canvas>
-        <!-- Animação de luz girando -->
         <div id="credits-light-spin"></div>
         <div id="credits-content">
             <div id="credits-title-img-wrapper">
@@ -92,17 +90,6 @@
                 </div>
                 <div class="member-card">
                     <div class="member-photo-wrapper">
-                        <img src="assets/Integrante4.PNG" alt="Integrante 4" class="member-photo">
-                    </div>
-                    <div class="member-info">
-                        <span class="member-name">Guilherme Machado</span>
-                        <a class="member-social" href="https://www.instagram.com/guilhermeah1/" target="_blank" rel="noopener noreferrer">@guilhermeah1</a>
-                        <span class="member-email">guilhermeanto398@gmail.com</span>
-                        <span class="member-role">Dev</span>
-                    </div>
-                </div>
-                <div class="member-card">
-                    <div class="member-photo-wrapper">
                         <img src="assets/Integrante5.PNG" alt="Integrante 5" class="member-photo">
                     </div>
                     <div class="member-info">
@@ -117,10 +104,10 @@
                         <img src="assets/Integrante6.PNG" alt="Integrante 6" class="member-photo">
                     </div>
                     <div class="member-info">
-                        <span class="member-name">Maylhys</span>
-                        <a class="member-social" href="InsiraoUrlDeRedeSocialAqui" target="_blank" rel="noopener noreferrer">@redesocial6</a>
-                        <span class="member-email">integrante6@email.com</span>
-                        <span class="member-role">Product Owner</span>
+                        <span class="member-name">Samuel Costa</span>
+                        <a class="member-social" href="" target="_blank" rel="noopener noreferrer">@Samuelcsan</a>
+                        <span class="member-email">samuelcsan007@gmail.com</span>
+                        <span class="member-role">Dev FullStack</span>
                     </div>
                 </div>
             </div>
@@ -145,7 +132,6 @@
         </div>
 
         <div id="pokedex-body">
-            <!-- PAINEL ESQUERDO -->
             <div id="panel-left">
                 <div id="pokemon-name-box">
                     <span id="pokemon-display-name">Bulbasaur</span>
@@ -178,7 +164,6 @@
                 </div>
             </div>
 
-            <!-- PAINEL DIREITO — ESTREITO -->
             <div id="panel-right">
                 <div id="search-box">
                     <input type="text" id="search-input" placeholder="Nome ou Nº...">
@@ -187,7 +172,6 @@
                     <button class="tab active" data-tab="all">Todos</button>
                     <button class="tab" data-tab="favorites">★ Favoritos</button>
                 </div>
-                <!-- FILTRO POR TIPO -->
                 <div id="type-filter-box">
                     <select id="type-filter-select">
                         <option value="">Todos os Tipos</option>
@@ -218,7 +202,6 @@
         </div>
     </div>
 
-    <script src="pokemonData.js"></script>
-    <script src="script.js"></script>
+    <script type="module" src="js/main.js"></script>
 </body>
 </html>
