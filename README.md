@@ -13,9 +13,9 @@ PokedexMPC é uma aplicação web desenvolvida em JavaScript, CSS e HTML, que tr
 
 ## Tecnologias Utilizadas
 
-- **JavaScript** (46%)
-- **CSS** (36,7%)
-- **HTML** (17,3%)
+- **JavaScript**
+- **CSS**
+- **HTML**
 
 ## Como usar
 
