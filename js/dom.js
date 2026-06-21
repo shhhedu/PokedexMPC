@@ -1,0 +1,30 @@
+export const $ = id => document.getElementById(id);
+
+export const loadingScreen=$('loading-screen'),
+    snorlaxContainer=$('snorlax-container'),
+    snorlaxStatus=$('snorlax-status');
+export const titleScreen=$('title-screen'),
+    forestBg=$('forest-bg'),
+    logoContainer=$('logo-container'),
+    menuOptions=$('menu-options');
+export const creditsScreen=$('credits-screen'),
+    pokedexScreen=$('pokedex-screen');
+export const pokemonList=$('pokemon-list'),
+    searchInput=$('search-input');
+export const displayName=$('pokemon-display-name'),
+    displayNumber=$('pokemon-display-number');
+export const btnPrevPokemon=$('btn-prev-pokemon'),
+    btnNextPokemon=$('btn-next-pokemon');
+export const spriteImg=$('pokemon-sprite'),
+    typesContainer=$('pokemon-types'),
+    evoChain=$('evolution-chain');
+export const saveBtn=$('save-btn'),
+    seenCountEl=$('seen-count'),
+    savedCountEl=$('saved-count');
+export const pokemonWeight=$('pokemon-weight'),
+    pokemonHeight=$('pokemon-height'),
+    pokemonAbility=$('pokemon-ability');
+export const typeBgImage=$('type-bg-image'),
+    typeBgOverlay=$('type-bg-overlay'),
+    btnBackMenu=$('btn-back-menu');
+export const typeFilterSelect=$('type-filter-select');

@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pokédex</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- ========== TELA DE CARREGAMENTO ========== -->
+    <div id="loading-screen">
+        <div id="snorlax-container">
+            <p id="snorlax-status">Z z z</p>
+            <img id="snorlax"
+                 src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/143.gif"
+                 alt="Snorlax dormindo">
+        </div>
+    </div>
+
+    <!-- ========== TELA DE TÍTULO ========== -->
+    <div id="title-screen" class="hidden">
+        <div class="black-bar top-bar"></div>
+        <div id="forest-bg">
+            <img src="assets/PlanoDeFundoFlorestaMenuInicial.gif" alt="Floresta" id="forest-img">
+        </div>
+        <div id="logo-container">
+            <img src="assets/TituloPokedexMenuInicial.png" alt="Pokédex" id="logo-img">
+        </div>
+        <div id="menu-options" class="hidden">
+            <div class="menu-item selected" data-action="start">
+                <img src="assets/StartMenuInicial.png" alt="START!" class="menu-img" id="start-img">
+            </div>
+            <div class="menu-item" data-action="credits">
+                <img src="assets/creditsMenuInicial.png" alt="credits ..." class="menu-img" id="credits-img">
+            </div>
+        </div>
+        <div id="bottom-bar">
+            <div id="bottom-bar-content">
+                <span id="bottom-hint">↑↓ Navegar &nbsp; ENTER Selecionar</span>
+                <span id="bottom-year">2026.</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== TELA DE CRÉDITOS ========== -->
+    <div id="credits-screen" class="hidden">
+        <div id="credits-bg"></div>
+        <div id="credits-overlay"></div>
+        <canvas id="pokemon-rain-canvas"></canvas>
+        <div id="credits-light-spin"></div>
+        <div id="credits-content">
+            <div id="credits-title-img-wrapper">
+                <img src="assets/CreditosCreditos.png" alt="Créditos" id="credits-title-img">
+            </div>
+            <div id="credits-members">
+                <div class="member-card">
+                    <div class="member-photo-wrapper">
+                        <img src="assets/Integrante1.png" alt="Integrante 1" class="member-photo">
+                    </div>
+                    <div class="member-info">
+                        <span class="member-name">Eduardo Gomes</span>
+                        <a class="member-social" href="https://www.instagram.com/shhhedu/" target="_blank" rel="noopener noreferrer">@shhhedu</a>
+                        <span class="member-email">dudugomesferreira755@gmail.com</span>
+                        <span class="member-role">Dev</span>
+                    </div>
+                </div>
+                <div class="member-card">
+                    <div class="member-photo-wrapper">
+                        <img src="assets/Integrante2.png" alt="Integrante 2" class="member-photo">
+                    </div>
+                    <div class="member-info">
+                        <span class="member-name">Jean Denis</span>
+                        <a class="member-social" href="https://www.instagram.com/dean_jenis/" target="_blank" rel="noopener noreferrer">@Dean_Jenis</a>
+                        <span class="member-email">jeandenis02@hotmail.com</span>
+                        <span class="member-role">Dev</span>
+                    </div>
+                </div>
+                <div class="member-card">
+                    <div class="member-photo-wrapper">
+                        <img src="assets/Integrante3.png" alt="Integrante 3" class="member-photo">
+                    </div>
+                    <div class="member-info">
+                        <span class="member-name">Roger Pinheiro</span>
+                        <a class="member-social" href="https://www.instagram.com/rogerpinheiroo/" target="_blank" rel="noopener noreferrer">@rogerpinheiroo</a>
+                        <span class="member-email">rogerdossantospinheiro@gmail.com</span>
+                        <span class="member-role">Dev</span>
+                    </div>
+                </div>
+                <div class="member-card">
+                    <div class="member-photo-wrapper">
+                        <img src="assets/Integrante5.png" alt="Integrante 5" class="member-photo">
+                    </div>
+                    <div class="member-info">
+                        <span class="member-name">Cynthia Lopez</span>
+                        <a class="member-social" href="https://www.instagram.com/cynthia_lopez_28/" target="_blank" rel="noopener noreferrer">@cynthia_lopez_28</a>
+                        <span class="member-email">cynthia2006lopezzz@gmail.com</span>
+                        <span class="member-role">Dev</span>
+                    </div>
+                </div>
+                <div class="member-card">
+                    <div class="member-photo-wrapper">
+                        <img src="assets/Integrante6.png" alt="Integrante 6" class="member-photo">
+                    </div>
+                    <div class="member-info">
+                        <span class="member-name">Samuel Costa</span>
+                        <a class="member-social" href="" target="_blank" rel="noopener noreferrer">@Samuelcsan</a>
+                        <span class="member-email">samuelcsan007@gmail.com</span>
+                        <span class="member-role">Dev FullStack</span>
+                    </div>
+                </div>
+            </div>
+            <p id="credits-back">Pressione ESC ou ENTER para voltar</p>
+        </div>
+    </div>
+
+    <!-- ========== TELA DA POKÉDEX ========== -->
+    <div id="pokedex-screen" class="hidden">
+        <div id="type-background">
+            <div id="type-bg-image"></div>
+            <div id="type-bg-overlay"></div>
+        </div>
+
+        <div id="pokedex-header">
+            <button id="btn-back-menu" title="Voltar ao menu">◀ MENU</button>
+            <span id="pokedex-title">Pokédex Time 7</span>
+            <div id="header-counters">
+                <span>Vistos: <strong id="seen-count">0</strong></span>
+                <span>Salvos: <strong id="saved-count">0</strong></span>
+            </div>
+        </div>
+
+        <div id="pokedex-body">
+            <div id="panel-left">
+                <div id="pokemon-name-box">
+                    <button id="btn-prev-pokemon" class="pokemon-nav-btn" title="Pokémon anterior" aria-label="Pokémon anterior">&#9664;</button>
+                    <span id="pokemon-display-name">Bulbasaur</span>
+                    <span id="pokemon-display-number">#0001</span>
+                    <button id="btn-next-pokemon" class="pokemon-nav-btn" title="Próximo Pokémon" aria-label="Próximo Pokémon">&#9654;</button>
+                </div>
+                <div id="pokemon-sprite-area">
+                    <div id="pokeball-watermark"></div>
+                    <img id="pokemon-sprite" src="" alt="Sprite">
+                </div>
+                <div id="pokemon-types"></div>
+                <div id="panel-left-bottom">
+                    <div id="pokemon-stats">
+                        <div class="stat-row"><span class="stat-label">HP</span><div class="stat-bar-bg"><div class="stat-bar" id="stat-hp"></div></div><span class="stat-val" id="val-hp">0</span></div>
+                        <div class="stat-row"><span class="stat-label">ATK</span><div class="stat-bar-bg"><div class="stat-bar" id="stat-atk"></div></div><span class="stat-val" id="val-atk">0</span></div>
+                        <div class="stat-row"><span class="stat-label">DEF</span><div class="stat-bar-bg"><div class="stat-bar" id="stat-def"></div></div><span class="stat-val" id="val-def">0</span></div>
+                        <div class="stat-row"><span class="stat-label">SP.A</span><div class="stat-bar-bg"><div class="stat-bar" id="stat-spa"></div></div><span class="stat-val" id="val-spa">0</span></div>
+                        <div class="stat-row"><span class="stat-label">SP.D</span><div class="stat-bar-bg"><div class="stat-bar" id="stat-spd"></div></div><span class="stat-val" id="val-spd">0</span></div>
+                        <div class="stat-row"><span class="stat-label">SPD</span><div class="stat-bar-bg"><div class="stat-bar" id="stat-spe"></div></div><span class="stat-val" id="val-spe">0</span></div>
+                    </div>
+                    <div id="pokemon-info-extra">
+                        <div class="info-item"><span class="info-label">Peso:</span><span id="pokemon-weight">—</span></div>
+                        <div class="info-item"><span class="info-label">Altura:</span><span id="pokemon-height">—</span></div>
+                        <div class="info-item"><span class="info-label">Habilidade:</span><span id="pokemon-ability">—</span></div>
+                    </div>
+                    <div id="evolution-section">
+                        <p id="evo-title">Evoluções</p>
+                        <div id="evolution-chain"></div>
+                    </div>
+                    <button id="save-btn">☆ Salvar Favorito</button>
+                </div>
+            </div>
+
+            <div id="panel-right">
+                <div id="search-box">
+                    <input type="text" id="search-input" placeholder="Nome ou Nº...">
+                </div>
+                <div id="tabs">
+                    <button class="tab active" data-tab="all">Todos</button>
+                    <button class="tab" data-tab="favorites">★ Favoritos</button>
+                </div>
+                <div id="type-filter-box">
+                    <select id="type-filter-select">
+                        <option value="">Todos os Tipos</option>
+                        <option value="normal">Normal</option>
+                        <option value="fire">Fire</option>
+                        <option value="water">Water</option>
+                        <option value="electric">Electric</option>
+                        <option value="grass">Grass</option>
+                        <option value="ice">Ice</option>
+                        <option value="fighting">Fighting</option>
+                        <option value="poison">Poison</option>
+                        <option value="ground">Ground</option>
+                        <option value="flying">Flying</option>
+                        <option value="psychic">Psychic</option>
+                        <option value="bug">Bug</option>
+                        <option value="rock">Rock</option>
+                        <option value="ghost">Ghost</option>
+                        <option value="dragon">Dragon</option>
+                        <option value="dark">Dark</option>
+                        <option value="steel">Steel</option>
+                        <option value="fairy">Fairy</option>
+                    </select>
+                </div>
+                <div id="pokemon-list-wrapper">
+                    <div id="pokemon-list"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="js/main.js"></script>
+</body>
+</html>
